@@ -1,5 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="_Default" %>
-
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="AddInfoOld.aspx.cs" Inherits="AddInfo" %>
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -9,23 +8,21 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-    
-    <%-- To refresh the page after 900 seconds --%>
-    <meta http-equiv="refresh" content="900"/>
 
     <%-- Bootstrap Core CSS and Themes References --%>
-    <link rel="stylesheet" type="text/css" href="~/css/bootstrap.min.css" />
-    <link href="~/css/bootstrap-theme.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+    <link href="css/bootstrap-theme.css" rel="stylesheet" />
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"/>
 
     <title>আইএলসি নেটওয়ার্ক মনিটরিং</title>
-    
+   
+
     <%-- Custom CSS File --%>
     <link href="~/css/footerStyle.css" rel="stylesheet" />
     <link href="~/css/style.css" rel="stylesheet" />
 
     <%-- Animation CSS --%>
-    <link href="~/css/animate.css" rel="stylesheet" />
+    <link href="css/animate.css" rel="stylesheet" />
 
 </head>
 
@@ -41,7 +38,7 @@
 					    <h4>Government of the People's Republic of Bangladesh</h4>
 					    <a href="http://sesip.gov.bd"><b>SECONDARY EDUCATION SECTOR INVESTMENT PROGRAM (SESIP)</b></a>
 					    <h4>Directorate of Secondary and Higher Education</h4>
-                        <h3>ILC Dashboard</h3>
+                        <h3>Technical Support for ICT Learning Centers(ILC) Network Operations</h3>
 				    </div>
 				    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
 					    <img class="sesiplogo  animated bounceInRight" src="~/../img/sesip_logo.png" />
@@ -49,11 +46,13 @@
 			    </div>
 		    </div>
 	    </header>
-        <header class="headerfix">
+        <header>
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-12 headernav">
+
                         <nav class="navbar navbar-default">
+
                                 <!-- Brand and toggle get grouped for better mobile display -->
                                 <div class="navbar-header">
                                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -67,13 +66,12 @@
                                 <!-- Collect the nav links, forms, and other content for toggling -->
                                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                                     <ul class="nav navbar-nav">
-                                        <li class="active"><a href="Default.aspx">Home<span class="sr-only">(current)</span></a></li>
+                                        <li><a href="Default.aspx">Home</a></li>
                                         <li><a id="reportsLink" href="Reports.aspx" runat="server" visible="false">Reports</a></li>
                                         <li><a id="mapLink" href="Map.aspx" runat="server" visible="false">Map</a></li>
-                                        <li><a id="addinfoLink" href="AddInfo.aspx" runat="server" visible="false">Add Information</a></li>
-                                        <li id="addUser" visible="false" runat="server"><a href="UserRegistration.aspx">Add User</a></li>
+                                        <li class="active"><a id="addinfoLink" href="AddInfo.aspx" runat="server" visible="false"><span class="sr-only">(current)</span>Add Information</a></li>
+                                        <li visible="false" id="addUser" runat="server"><a href="UserRegistration.aspx">Add User</a></li>
                                         <li id="dl" visible="false" runat="server"><a href="Download.aspx">Download</a></li>
-                                        <li id="faqLink" visible="false" runat="server"><a href="faq.aspx">FAQ</a></li>
                                         <li id="adminPanel" visible="false" runat="server"><a href="AdminPanel.aspx">Admin Panel</a></li>
                                         <li><a href="About.aspx">About</a></li>
                                     </ul>
@@ -87,14 +85,12 @@
                                         <li id="logoutLink" runat="server" visible="false">
                                             <asp:LinkButton ID="logoutLB" OnClick="logoutLB_Click" runat="server">Logout</asp:LinkButton>
                                         </li>
-
+                                        
                                     </ul>
                                 </div>
-                                <!-- /.navbar-collapse -->
-
                         </nav>
 
-                        <p id="demo" style="text-align:right;"></p>
+                        <p id="demo" align="right"></p>
                         <script>
                             var d = new Date();
                             document.getElementById("demo").innerHTML = d;
@@ -103,6 +99,7 @@
                     </div>
                 </div>
             </div>
+
         </header>
 
         <div class="container">
@@ -111,54 +108,98 @@
                 </div>
 
                 <div style="padding-left: 16px">
-                    <h2 class="sesip_heading" style="text-align:center;">Welcome to SESIP</h2>
+                    <h2 style="text-align: center;">স্কুলের তথ্য ডেটাবেজে জমা করুন</h2>
+                    <p></p>
                 </div>
             </div>
         </div>
+             <div class="container fullbody">
+		<div class="row">
 
-        <div>
-            <p hidden="hidden" id="information" runat="server"></p>
-            <p hidden="hidden" id="st" runat="server"></p>
-            <p hidden="hidden" id="ilcid" runat="server"></p>
-            <p hidden="hidden" id="activepc" runat="server"></p>
-        </div>
+			<div class="col-xs-12 table-responsive">
+			  <table border="2" class="table">
+			    <tr class="success table-tr">
+			    	<th>স্কুলের নাম*</th>
+			    	<th>
+                        <asp:TextBox ID="schoolNameTB" runat="server" Width="450px"></asp:TextBox>
+			    	</th>
+			    </tr>
+                 <tr class="table-tr">
+			    	<td>স্কুল আইডি*</td>
+                    <td>
+                        <asp:TextBox ID="schoolIDTB" runat="server" Width="450px"></asp:TextBox>
+                    </td>
+			    </tr>
+			    <tr  class="table-tr">
+			    	<td>ঠিকানা</td>
+                    <td>
+                        <asp:TextBox ID="addressTB" runat="server" Width="450px"></asp:TextBox>
+                    </td>
+			    </tr>
+                <tr class="table-tr">
+                    <td>হেডমাস্টার/মাদ্রাসা সুপার</td>
+                    <td>
+                        <asp:TextBox ID="headNameTB" runat="server" Width="450px"></asp:TextBox>
+                    </td>
+                </tr>
+                <tr>
+                    <td>ফোন</td>
+                    <td>
+                        <asp:TextBox ID="headPhoneTB" runat="server" Width="450px"></asp:TextBox>
+                    </td>
+                </tr>
+                <tr>
+                    <td>ইমেইল</td>
+                    <td>
+                        <asp:TextBox ID="headEmailTB" runat="server" Width="450px"></asp:TextBox>
+                    </td>
+                </tr>
+                <tr>
+                    <td>আইসিটি শিক্ষক/শিক্ষিকা</td>
+                    <td>
+                        <asp:TextBox ID="trainerNameTB" runat="server" Width="450px"></asp:TextBox>
+                    </td>
+                </tr>
+                <tr>
+                    <td>ফোন</td>
+                    <td>
+                        <asp:TextBox ID="trainerPhoneTB" runat="server" Width="450px"></asp:TextBox>
+                    </td>
+                </tr>
+                <tr>
+                    <td>ইমেইল</td>
+                    <td>
+                        <asp:TextBox ID="trainerEmailTB" runat="server" Width="450px"></asp:TextBox>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <asp:Button ID="submitBTN" CssClass="btn btn-success" runat="server" Text="সংরক্ষন করুন" OnClick="submitBTN_Click" />
+                    </td>
+                </tr>
+			  </table>
 
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-12 sesiphome">
-                    <div class="col-md-6">
-                        <img  alt="Paris" class="center home" src="img/shikkha.jpg" width="100"/>
-                    </div>
-                    <div class="col-md-6 hometext">
-                        <p style="text-align:left;text-align:justify;">Secondary Education Sector Development Plan (SE-SDP) was developed in 1998 with the Technical Assistance of ADB to develop the secondary education sector as a whole. </p>
+			</div>
+		</div>
+	</div>
 
-                        <p style="text-align:left;text-align:justify;">Secondary Education Sector Improvement Project (SESIP) implemented (1999- 2007) as the first slice of SESDP and Secondary Education Sector Development Project (2007- 2013) taken as a follow-up. Secondary Education Sector Investment Program is taken based on the inputs of the mentioned previous projects. It will be implemented through program approach (treasury model). </p> 
-
-                        <p style="text-align:left;text-align:justify;">The program has been taken under a multi-tranche financing arrangement with ADB amounting US$ 500 million for 10 years. The program is aimed at developing Sector Wide Approach (SWAP).</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-
-      <footer  class="footerrfix">
+     <footer  class="footerrfix">
 		<div class="container-fluid">
 			<div class="row">
-				<br />
-				<hr />
-				<div class="col-md-12 footer-copyright text-center text-black-50 py-3">
-					<p class="textcopyright">Copyright 2018 © Secondary Education Sector Investment Program (SESIP), Designed and developed by <a href="http://www.ddclbd.com" target="_blank" style="text-decoration: none; color: white;">DDCL</a></p>
-				</div>
+				<center>
+					<br />
+					<hr>
+					<div class="col-md-12 footer-copyright text-center text-black-50 py-3">
+						<p class="textcopyright">Copyright 2018 © Secondary Education Sector Investment Program (SESIP), Designed and developed by <a href="http://www.ddclbd.com" target="_blank" style="text-decoration: none; color: white;">DDCL</a></p>
+					</div>
+				</center>
 			</div>
 		</div>
 	</footer>
 
-
         <script src="js/jquery.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
     </form>
-
 </body>
 </html>
-
