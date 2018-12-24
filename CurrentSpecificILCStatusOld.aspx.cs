@@ -16,7 +16,7 @@ public partial class CurrentSpecificILCStatus : System.Web.UI.Page
 {
     ReportDocument rprt = new ReportDocument();
     string userType = "";
-    protected void Page_Load(object sender, EventArgs e)
+    protected void Page_Init(object sender, EventArgs e)
     {
         string userType = "";
         string userName = "";

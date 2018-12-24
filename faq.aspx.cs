@@ -42,6 +42,7 @@ public partial class faq : System.Web.UI.Page
             addUser.Visible = true;
             dl.Visible = true;
             adminPanel.Visible = true;
+            //deployLink.Visible = true;
             user.InnerText = "Super-Admin";
         }
         else if (userType == "Sesip-Admin")
@@ -49,17 +50,20 @@ public partial class faq : System.Web.UI.Page
             addUser.Visible = true;
             dl.Visible = true;
             adminPanel.Visible = true;
+            //deployLink.Visible = true;
             user.InnerText = "Sesip-Admin";
         }
         else if (userType == "Programmer")
         {
             addUser.Visible = true;
             dl.Visible = true;
+            //deployLink.Visible = true;
             user.InnerText = "Programmer";
         }
         else if (userType == "Assistant-Programmer")
         {
             dl.Visible = true;
+            //deployLink.Visible = true;
             user.InnerText = "Assistant-Programmer";
         }
         else if (userType == "ILC-Admin")

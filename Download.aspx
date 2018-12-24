@@ -74,6 +74,7 @@
                                     <li id="faqLink" visible="false" runat="server"><a href="faq.aspx">FAQ</a></li>
                                     <li id="adminPanel" visible="false" runat="server"><a href="AdminPanel.aspx">Admin Panel</a></li>
                                     <li><a href="About.aspx">About</a></li>
+                                    <%--<li id="deployLink" visible="false" runat="server"><a href="deploy.aspx">Deploy Status</a></li>--%>
                                 </ul>
                                 <ul class="nav navbar-nav navbar-right">
                                     <li>
@@ -107,9 +108,22 @@
                     <center>
                         <a class="btn btn-success" href="Install-Scripts.rar">Download Script</a>
                         <br />
-                         <br />
-                         <br />
-                        <a class="btn btn-success" href="User-Guide-MonitorinDashboard(v-0.12).pdf">Download Installation Manual</a>
+                        <br />
+                        <a id="dashboard" class="btn btn-success" href="User-Guide-MonitorinDashboard(v-0.13).pdf" runat="server">Download Dashboard Installation Manual</a>
+                        <br />
+                        <br />
+                        <a id="ilcAdmin" class="btn btn-success" href="User-Guide-MonitorinDashboard(v-0.13).pdf" visible="false" runat="server">Download User-Manual for ILC-Admin</a>
+                        <br />
+                        <br />
+                        <a  id="ap" class="btn btn-success" href="User-Guide-MonitorinDashboard(v-0.13).pdf" visible="false" runat="server">Download User-Manual for Assistant-Programmer</a>
+                        <br />
+                        <br />
+                        <a  id="p" class="btn btn-success" href="User-Guide-MonitorinDashboard(v-0.13).pdf" visible="false" runat="server">Download User-Manual for Programmer</a>
+                        <br />
+                        <br />
+                        <a id="sesipAdmin" class="btn btn-success" href="User-Guide-MonitorinDashboard(v-0.13).pdf" visible="false" runat="server">Download User-Manual for SESIP-Admin</a>
+
+
                     </center>
                 </div>
 

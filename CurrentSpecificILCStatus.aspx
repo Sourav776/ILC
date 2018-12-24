@@ -77,6 +77,7 @@
                                         <li id="faqLink" visible="false" runat="server"><a href="faq.aspx">FAQ</a></li>
                                         <li id="adminPanel" visible="false" runat="server"><a href="AdminPanel.aspx">Admin Panel</a></li>
                                         <li><a href="About.aspx">About</a></li>
+                                        <%--<li id="deployLink" visible="false" runat="server"><a href="deploy.aspx">Deploy Status</a></li>--%>
                                     </ul>
                                     <ul class="nav navbar-nav navbar-right">
                                         <li>
@@ -113,6 +114,10 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
+                     <asp:ScriptManager ID="ScriptManager1" runat="server">
+                </asp:ScriptManager>
+                <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+                    <ContentTemplate>
                 <br />
                     <asp:Label ID="ZoneLBL" runat="server" CssClass="Zonecl" Text="Select Zone" Font-Size="Large"></asp:Label>
                 
@@ -132,6 +137,8 @@
                     <asp:DropDownList ID="ilcDDL" runat="server" Height="25px" Width="250px"></asp:DropDownList>
                 <br />
                 <br />
+                         </ContentTemplate>
+                       </asp:UpdatePanel>
                 <asp:Button ID="rptBTN" CssClass="btn btn-success" runat="server" OnClick="rptBTN_Click" Text="Generate Report" />
                     <p></p>
                 </div>

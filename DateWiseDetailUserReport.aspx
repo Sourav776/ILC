@@ -1,7 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="DateWiseDetailUserReport.aspx.cs" Inherits="DateWiseDetailUserReport" %>
 
 <%@ Register Assembly="CrystalDecisions.Web, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" Namespace="CrystalDecisions.Web" TagPrefix="CR" %>
-
+<%@ Register TagPrefix="asp" Namespace="AjaxControlToolkit" Assembly="AjaxControlToolkit" %>
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -26,14 +26,9 @@
     <link href="css/animate.css" rel="stylesheet" />
 
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+            <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script>
-        $(function () {
-            $("#datePickerFrom").datepicker();
-            $("#datePickerTo").datepicker();
-        });
-    </script>
+    
 
 </head>
 
@@ -86,6 +81,7 @@
                                         <li id="faqLink" visible="false" runat="server"><a href="faq.aspx">FAQ</a></li>
                                         <li id="adminPanel" visible="false" runat="server"><a href="AdminPanel.aspx">Admin Panel</a></li>
                                         <li><a href="About.aspx">About</a></li>
+                                        <%--<li id="deployLink" visible="false" runat="server"><a href="deploy.aspx">Deploy Status</a></li>--%>
                                     </ul>
                                     <ul class="nav navbar-nav navbar-right">
                                         <li>
@@ -122,26 +118,42 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
+
+                        <h3>তারিখ অনুযায়ী আইসিটি লার্নিং সেন্টারের বিস্তারিত স্ট্যাটাস</h3>
+                        <asp:Button ID="backBTN" runat="server" CssClass="btn btn-danger" Text="Go Back" OnClick="backBTN_Click"></asp:Button>
+                  <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+                        <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+                            <contentTemplate>
                       <br />
+
+
                     <asp:Label ID="ZoneLBL" runat="server" CssClass="Zonecl" Text="Select Zone" Font-Size="Large"></asp:Label>
                 
           
-                    <asp:DropDownList ID="ZoneDDL"  AutoPostBack="true" onselectedindexchanged="ZoneDDL_SelectedIndexChanged" runat="server" Height="25px" Width="250px"></asp:DropDownList>
+                    <asp:DropDownList ID="ZoneDDL"  AutoPostBack="true" onselectedindexchanged="ZoneDDL_SelectedIndexChanged" runat="server" Height="25px" Width="350px"></asp:DropDownList>
                 <br />
                 <br />
                     <asp:Label ID="DistLBL" runat="server" CssClass="Distcl" Text="Select District" Font-Size="Large"></asp:Label>
                 
                 
-                    <asp:DropDownList ID="districtDDL" AutoPostBack="true" onselectedindexchanged="districtDDL_SelectedIndexChanged" runat="server" Height="25px" Width="250px"></asp:DropDownList>
+                    <asp:DropDownList ID="districtDDL" AutoPostBack="true" onselectedindexchanged="districtDDL_SelectedIndexChanged" runat="server" Height="25px" Width="350px"></asp:DropDownList>
                 <br />
                 <br />
                     <asp:Label ID="ilcNameLBL" runat="server" CssClass="ILCcl" Text="Select ILC" Font-Size="Large"></asp:Label>
                 
                 
-                    <asp:DropDownList ID="ilcDDL" runat="server" Height="25px" Width="250px"></asp:DropDownList>
+                    <asp:DropDownList ID="ilcDDL" runat="server" Height="25px" Width="350px"></asp:DropDownList>
+                                </contentTemplate>
+                                </asp:UpdatePanel>
                 <br />
-                            <br />
-                            <br />
+                            
+                            
+                                <script>
+                                    $(function () {
+                                        $("#datePickerFrom").datepicker();
+                                        $("#datePickerTo").datepicker();
+                                    });
+                                </script>
                             <asp:Label ID="fromDateLBL" runat="server" Text="Date from"></asp:Label>
                             <asp:TextBox ID="datePickerFrom" runat="server"></asp:TextBox>
                             <asp:Label ID="toDateLBL" runat="server" Text="To"></asp:Label>
@@ -155,7 +167,7 @@
                         <div style="padding-left: 16px">
                             <CR:CrystalReportViewer ID="crv" runat="server" AutoDataBind="true" ToolPanelView="None" EnableDatabaseLogonPrompt="False" EnableParameterPrompt="False"></CR:CrystalReportViewer>
                         </div>
-                        <asp:Button ID="backBTN" runat="server" CssClass="btn btn-danger" Text="Go Back" OnClick="backBTN_Click"></asp:Button>
+                        
                    </div>
                 </div>
             </div>

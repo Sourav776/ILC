@@ -41,6 +41,7 @@ public partial class Map : System.Web.UI.Page
             addUser.Visible = true;
             dl.Visible = true;
             adminPanel.Visible = true;
+            //deployLink.Visible = true;
             user.InnerText = "Super-Admin";
         }
         else if (userType == "Sesip-Admin")
@@ -48,17 +49,20 @@ public partial class Map : System.Web.UI.Page
             addUser.Visible = true;
             dl.Visible = true;
             adminPanel.Visible = true;
+            //deployLink.Visible = true;
             user.InnerText = "Sesip-Admin";
         }
         else if (userType == "Programmer")
         {
             addUser.Visible = true;
             dl.Visible = true;
+            //deployLink.Visible = true;
             user.InnerText = "Programmer";
         }
         else if (userType == "Assistant-Programmer")
         {
             dl.Visible = true;
+            //deployLink.Visible = true;
             user.InnerText = "Assistant-Programmer";
         }
         else if (userType == "ILC-Admin")
@@ -66,6 +70,7 @@ public partial class Map : System.Web.UI.Page
             faqLink.Visible = false;
             user.InnerText = "ILC-Admin";
         }
+
         SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["ILCDBConnectionString"].ToString());
         SqlDataReader dr;
         SqlCommand cmd;
@@ -95,6 +100,23 @@ public partial class Map : System.Web.UI.Page
         st.InnerText = status;
         ilcid.InnerText = ID;
         activepc.InnerText = active;
+
+        using (SqlConnection con2 = new SqlConnection(ConfigurationManager.ConnectionStrings["ILCDBConnectionString"].ToString()))
+        {
+            SqlDataReader dr2;
+            SqlCommand cmd2;
+            con2.Open();
+            int off = 0;
+            string onStatus = "SELECT COUNT(*) FROM Location WHERE CStatus = 1";
+            cmd2 = new SqlCommand(onStatus, con2);
+            dr2 = cmd2.ExecuteReader();
+            while (dr2.Read())
+            {
+                onStatusH4.InnerHtml = "Currently Active ILC   " + dr2[0].ToString();
+                off = 640 - int.Parse(dr2[0].ToString());
+                offStatusH4.InnerHtml = "Currently Inactive ILC " + off;
+            }
+        }
     }
     protected void logoutLB_Click(object sender, EventArgs e)
     {

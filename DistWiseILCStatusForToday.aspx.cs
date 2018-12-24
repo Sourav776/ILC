@@ -14,7 +14,7 @@ using System.Data;
 public partial class DistWiseILCStatusForToday : System.Web.UI.Page
 {
     ReportDocument rprt = new ReportDocument();
-    protected void Page_Load(object sender, EventArgs e)
+    protected void Page_Init(object sender, EventArgs e)
     {
         string userType = "";
         string userName = "";
@@ -105,6 +105,8 @@ public partial class DistWiseILCStatusForToday : System.Web.UI.Page
             ParameterDiscreteValue val1 = new ParameterDiscreteValue();
             val1.Value = districtID;
             field1.CurrentValues.Add(val1);
+            rprt.Close();
+            rprt.Dispose();
         }
     }
     protected void logoutLB_Click(object sender, EventArgs e)

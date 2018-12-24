@@ -75,6 +75,7 @@
                                         <li id="faqLink" visible="false" runat="server"><a href="faq.aspx">FAQ</a></li>
                                         <li id="adminPanel" visible="false" runat="server"><a href="AdminPanel.aspx">Admin Panel</a></li>
                                         <li><a href="About.aspx">About</a></li>
+                                        <%--<li id="deployLink" visible="false" runat="server"><a href="deploy.aspx">Deploy Status</a></li>--%>
                                     </ul>
                                     <ul class="nav navbar-nav navbar-right">
                                         <li>
@@ -130,7 +131,7 @@
 			    	<td>স্কুল ইআইআইএন*</td>
                     <td>
                         <asp:TextBox ID="schoolIDTB" runat="server" Width="450px"></asp:TextBox>
-                        <asp:RequiredFieldValidator ID="schoolIDRFV" runat="server"  ForeColor="Red" ErrorMessage="Please enter the EIN Number" ControlToValidate="schoolNameTB"></asp:RequiredFieldValidator>
+                        <asp:RequiredFieldValidator ID="schoolIDRFV" runat="server"  ForeColor="Red" ErrorMessage="Please enter the EIN Number" ControlToValidate="schoolIDTB"></asp:RequiredFieldValidator>
                     </td>
 			    </tr>
 			    <tr  class="table-tr">

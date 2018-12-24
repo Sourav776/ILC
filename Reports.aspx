@@ -84,6 +84,7 @@
                                         <li id="faqLink" visible="false" runat="server"><a href="faq.aspx">FAQ</a></li>
                                         <li id="adminPanel" visible="false" runat="server"><a href="AdminPanel.aspx">Admin Panel</a></li>
                                         <li><a href="About.aspx">About</a></li>
+                                        <%--<li id="deployLink" visible="false" runat="server"><a href="deploy.aspx">Deploy Status</a></li>--%>
                                     </ul>
                                     <ul class="nav navbar-nav navbar-right">
                                         <li>
@@ -149,22 +150,27 @@
                     <table border="2" class="table">
                         <tr id="allSchoolTR" class="success table-tr" visible="false" runat="server">
                             <td>
-                                <asp:LinkButton ID="rptAllSchoolBTN" OnClick="rptAllSchoolBTN_Click" CssClass="test" runat="server" Font-Bold="True" ForeColor="Maroon" >আইসিটি লার্নিং সেন্টারের তালিকা</asp:LinkButton>
+                                <asp:LinkButton ID="rptAllSchoolBTN" OnClick="rptAllSchoolBTN_Click" CssClass="test" runat="server" >আইসিটি লার্নিং সেন্টারের তালিকা</asp:LinkButton>
                             </td>
                         </tr>
                         <tr id="specificSchoolTR" class="success table-tr" visible="false" runat="server">
                             <td>
-                                <asp:LinkButton ID="rptSpecificSchoolBTN" OnClick="rptSpecificSchoolBTN_Click" runat="server" Font-Bold="True" ForeColor="Maroon">নির্দিষ্ট আইসিটি লার্নিং সেন্টারের তথ্য</asp:LinkButton>
+                                <asp:LinkButton ID="rptSpecificSchoolBTN" OnClick="rptSpecificSchoolBTN_Click" runat="server">নির্দিষ্ট আইসিটি লার্নিং সেন্টারের তথ্য</asp:LinkButton>
                             </td>
                         </tr>
                         <tr id="currentILCStatusTR" class="success table-tr" visible="false" runat="server">
                             <td>
-                                <asp:LinkButton ID="rptCurrentILCStatusBTN" OnClick="rptCurrentILCStatusBTN_Click" runat="server" Font-Bold="True" ForeColor="Maroon">আইসিটি লার্নিং সেন্টারের এই মুহূর্তের স্ট্যাটাস</asp:LinkButton>
+                                <asp:LinkButton ID="rptCurrentILCStatusBTN" OnClick="rptCurrentILCStatusBTN_Click" runat="server">আইসিটি লার্নিং সেন্টারের এই মুহূর্তের স্ট্যাটাস</asp:LinkButton>
                             </td>
                         </tr>
                        <tr id="CurrentSpecificILCStatusTR" class="success table-tr" visible="false" runat="server">
                             <td>
-                                <asp:LinkButton ID="rptCurrentSpecificILCStatus" OnClick="rptCurrentSpecificILCStatus_Click" runat="server" Font-Bold="True" ForeColor="Maroon">বর্তমানে নির্দিষ্ট আইসিটি লার্নিং সেন্টারের স্ট্যাটাস</asp:LinkButton>
+                                <asp:LinkButton ID="rptCurrentSpecificILCStatus" OnClick="rptCurrentSpecificILCStatus_Click" runat="server">বর্তমানে নির্দিষ্ট আইসিটি লার্নিং সেন্টারের স্ট্যাটাস</asp:LinkButton>
+                            </td>
+                        </tr>
+                        <tr id="CurrentAllILCStatusTR" class="success table-tr" visible="false" runat="server">
+                            <td>
+                                <asp:LinkButton ID="CurrentAllILCStatus" OnClick="CurrentAllILCStatus_Click" runat="server">বর্তমানে সকল আইসিটি লার্নিং সেন্টারের স্ট্যাটাস</asp:LinkButton>
                             </td>
                         </tr>
 <%--                        <tr id="dateWiseILCStatusTR" class="success table-tr" visible="false" runat="server">
@@ -174,11 +180,11 @@
                         </tr>--%>
                         <tr id="dateWiseILCStatusDetailsTR" class="success table-tr" visible="false" runat="server">
                             <td>
-                                <asp:LinkButton ID="dateWiseILCStatusDetailsBTN" OnClick="dateWiseILCStatusDetailsBTN_Click" runat="server" Font-Bold="True" ForeColor="Maroon">তারিখ অনুযায়ী আইসিটি লার্নিং সেন্টারের বিস্তারিত স্ট্যাটাস</asp:LinkButton></td>
+                                <asp:LinkButton ID="dateWiseILCStatusDetailsBTN" OnClick="dateWiseILCStatusDetailsBTN_Click" runat="server">তারিখ অনুযায়ী আইসিটি লার্নিং সেন্টারের বিস্তারিত স্ট্যাটাস</asp:LinkButton></td>
                         </tr>
                         <tr id="dateWiseAllILCStatusTR" class="success table-tr" visible="false" runat="server">
                             <td>
-                                <asp:LinkButton ID="dateWiseAllILCStatus" OnClick="dateWiseAllILCStatus_Click" runat="server" Font-Bold="True" ForeColor="Maroon">তারিখ অনুযায়ী সকল আইসিটি লার্নিং সেন্টারের সার্ভারের স্ট্যাটাস</asp:LinkButton>
+                                <asp:LinkButton ID="dateWiseAllILCStatus" OnClick="dateWiseAllILCStatus_Click" runat="server">তারিখ অনুযায়ী সকল আইসিটি লার্নিং সেন্টারের সার্ভারের স্ট্যাটাস</asp:LinkButton>
                             </td>
                         </tr>
 <%--                        <tr id="distWiseTodaysILCStatusTR" class="success table-tr" visible="false" runat="server">
@@ -193,7 +199,7 @@
                         </tr>--%>
                         <tr id="ilcRankingTR" class="success table-tr" visible="false" runat="server">
                             <td>
-                                <asp:LinkButton ID="rptILCRanking" runat="server" Font-Bold="True" ForeColor="Maroon">আইএলসি র‍্যাঙ্কিং</asp:LinkButton>
+                                <asp:LinkButton ID="rptILCRanking" OnClick="rptILCRanking_Click" runat="server">আইসিটি লার্নিং সেন্টারের র‍্যাঙ্কিং</asp:LinkButton>
                             </td>
                         </tr>
                     </table>

@@ -87,6 +87,7 @@
                                         <li id="faqLink" visible="false" runat="server"><a href="faq.aspx">FAQ</a></li>
                                         <li id="adminPanel" visible="false" runat="server"><a href="AdminPanel.aspx">Admin Panel</a></li>
                                         <li><a href="About.aspx">About</a></li>
+                                        <%--<li id="deployLink" visible="false" runat="server"><a href="deploy.aspx">Deploy Status</a></li>--%>
                                     </ul>
                                     <ul class="nav navbar-nav navbar-right">
                                         <li>
@@ -126,6 +127,11 @@
                         <div style="padding-left: 16px">
                             <br />
                             <br />
+                            <h3>তারিখ অনুযায়ী সকল আইসিটি লার্নিং সেন্টারের সার্ভারের স্ট্যাটাস</h3>
+                            <br />
+                            <asp:Button ID="backBTN" runat="server" CssClass="btn btn-danger" Text="Go Back" OnClick="backBTN_Click"></asp:Button>
+                            <br />
+                            <br />
                             <asp:Label ID="fromDateLBL" runat="server" Text="Date from"></asp:Label>
                             <asp:TextBox ID="datePickerFrom" runat="server"></asp:TextBox>
                             <asp:Label ID="toDateLBL" runat="server" Text="To"></asp:Label>
@@ -139,7 +145,7 @@
                         <div style="padding-left: 16px">
                             <CR:CrystalReportViewer ID="crv" runat="server" AutoDataBind="true" ToolPanelView="None" EnableDatabaseLogonPrompt="False" EnableParameterPrompt="False"></CR:CrystalReportViewer>
                         </div>
-                        <asp:Button ID="backBTN" runat="server" CssClass="btn btn-danger" Text="Go Back" OnClick="backBTN_Click"></asp:Button>
+                        
                    </div>
                 </div>
             </div>

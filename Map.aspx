@@ -80,6 +80,7 @@
                                         <li id="faqLink" visible="false" runat="server"><a href="faq.aspx">FAQ</a></li>
                                         <li id="adminPanel" visible="false" runat="server"><a href="AdminPanel.aspx">Admin Panel</a></li>
                                         <li><a href="About.aspx">About</a></li>
+                                        <%--<li id="deployLink" visible="false" runat="server"><a href="deploy.aspx">Deploy Status</a></li>--%>
                                     </ul>
                                     <ul class="nav navbar-nav navbar-right">
                                         <li>
@@ -116,6 +117,8 @@
                 <div style="padding-left: 16px">
                     <h2 align="center">ILC Dashboard on Google map</h2>
                     <p></p>
+                    <h4 align="right" id="onStatusH4" runat="server"></h4>
+                    <h4 align="right" id="offStatusH4" runat="server"></h4>
                 </div>
             </div>
         </div>
@@ -198,7 +201,7 @@
             var cntt = 0;
             for (i = 0; i <= locations.length; i++) {
                 var schoolname = locations[i][0];
-                console.log("Count - "+ ++cnt + " || School - " + schoolname + "\n Location - " + locations[i][1] + " "+ locations[i][2]);
+                //console.log("Count - "+ ++cnt + " || School - " + schoolname + "\n Location - " + locations[i][1] + " "+ locations[i][2]);
                 if (stts[i][0] === "True" && activepc[i][0] == 0) {
                     marker = new google.maps.Marker({
                         position: new google.maps.LatLng(Number(locations[i][1]), Number(locations[i][2])),

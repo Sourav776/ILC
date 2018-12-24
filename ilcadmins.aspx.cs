@@ -34,12 +34,14 @@ public partial class ilcadmins : System.Web.UI.Page
         {
             addUser.Visible = true;
             dl.Visible = true;
+            //deployLink.Visible = true;
             user.InnerText = "Super-Admin";
         }
         else if (userType == "Super-Admin")
         {
             addUser.Visible = true;
             dl.Visible = true;
+            //deployLink.Visible = true;
             user.InnerText = "Super-Admin";
         }
         else if (userType == "Programmer")
@@ -47,12 +49,14 @@ public partial class ilcadmins : System.Web.UI.Page
             Response.Redirect("Default.aspx");
             addUser.Visible = true;
             dl.Visible = true;
+            //deployLink.Visible = true;
             user.InnerText = "Programmer";
         }
         else if (userType == "Assistant-Programmer")
         {
             Response.Redirect("Default.aspx");
             dl.Visible = true;
+            //deployLink.Visible = true;
             user.InnerText = "Assistant-Programmer";
         }
         else if (userType == "ILC-Admin")

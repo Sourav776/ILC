@@ -16,7 +16,7 @@ public partial class CurrentSpecificILCStatus : System.Web.UI.Page
 {
     ReportDocument rprt = new ReportDocument();
     string userType = "";
-    protected void Page_Load(object sender, EventArgs e)
+    protected void Page_Init(object sender, EventArgs e)
     {
         if (!Page.IsPostBack)
         {
@@ -50,6 +50,7 @@ public partial class CurrentSpecificILCStatus : System.Web.UI.Page
             addUser.Visible = true;
             dl.Visible = true;
             adminPanel.Visible = true;
+            //deployLink.Visible = true;
             user.InnerText = "Super-Admin";
         }
         else if (userType == "Sesip-Admin")
@@ -57,17 +58,20 @@ public partial class CurrentSpecificILCStatus : System.Web.UI.Page
             addUser.Visible = true;
             dl.Visible = true;
             adminPanel.Visible = true;
+            //deployLink.Visible = true;
             user.InnerText = "Sesip-Admin";
         }
         else if (userType == "Programmer")
         {
             addUser.Visible = true;
             dl.Visible = true;
+            //deployLink.Visible = true;
             user.InnerText = "Programmer";
         }
         else if (userType == "Assistant-Programmer")
         {
             dl.Visible = true;
+            //deployLink.Visible = true;
             user.InnerText = "Assistant-Programmer";
         }
         else if (userType == "ILC-Admin")
@@ -93,6 +97,8 @@ public partial class CurrentSpecificILCStatus : System.Web.UI.Page
             ParameterDiscreteValue val1 = new ParameterDiscreteValue();
             val1.Value = ILCID;
             field1.CurrentValues.Add(val1);
+            rprt.Close();
+            rprt.Dispose();
         }
         if (!IsPostBack)
         {
@@ -199,14 +205,24 @@ public partial class CurrentSpecificILCStatus : System.Web.UI.Page
         districtDDL.DataValueField = "DistCode";
         districtDDL.DataTextField = "DistName";
         districtDDL.DataBind();
+
     }
 
     private void LoadILC()
     {
-        ilcDDL.DataSource = RetrieveILCByDistrict(districtDDL.SelectedValue);
+        string dis = districtDDL.SelectedValue;
+        string div = ZoneDDL.SelectedValue;
+        ilcDDL.DataSource = RetrieveILCByDistrict(dis);
         ilcDDL.DataValueField = "ILCID";
         ilcDDL.DataTextField = "ILCEng";
         ilcDDL.DataBind();
+        if (dis == null)
+        {
+            ilcDDL.DataSource = RetrieveILCByZone(div);
+            ilcDDL.DataValueField = "ILCID";
+            ilcDDL.DataTextField = "ILCEng";
+            ilcDDL.DataBind();
+        }
     }
 
 
@@ -239,6 +255,7 @@ public partial class CurrentSpecificILCStatus : System.Web.UI.Page
         }
         return dsDis;
     }
+
     public static DataSet RetrieveILCByDistrict(string distCode)
     {
         string sql = "";
@@ -269,6 +286,33 @@ public partial class CurrentSpecificILCStatus : System.Web.UI.Page
         return dsILC;
     }
 
+    public static DataSet RetrieveILCByZone(string Div)
+    {
+        string sql = "";
+        //fetch the connection string from web.config
+        string con = ConfigurationManager.ConnectionStrings["ILCDBConnectionString"].ConnectionString;
+        {
+            sql = @"Select ILCID,ILCEng from Location A 
+  Inner Join tblDistrict B On A.DistCode=B.DistCode
+  Inner Join tblDivision C On B.DivCode=C.DivCode
+  Where C.DivCode='" + Div + "' order by ILCEng";
+        }
+
+        DataSet dsILC = new DataSet();
+        //Open SQL Connection
+        using (SqlConnection conn = new SqlConnection(con))
+        {
+            conn.Open();
+            //Initialize command object
+            using (SqlCommand cmd = new SqlCommand(sql, conn))
+            {
+                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                //Fill the result set
+                adapter.Fill(dsILC);
+            }
+        }
+        return dsILC;
+    }
 
     protected void districtDDL_SelectedIndexChanged(object sender, EventArgs e)
     {
@@ -277,6 +321,7 @@ public partial class CurrentSpecificILCStatus : System.Web.UI.Page
     protected void ZoneDDL_SelectedIndexChanged(object sender, EventArgs e)
     {
         LoadDis();
+        LoadILC();
     }
 
     protected void logoutLB_Click(object sender, EventArgs e)
@@ -302,17 +347,29 @@ public partial class CurrentSpecificILCStatus : System.Web.UI.Page
         SqlDataAdapter sda = new SqlDataAdapter(cmdRpt);
         DataSet ds = new DataSet();
         sda.Fill(ds);
-        rprt.SetDataSource(ds);
-        crv.ReportSource = rprt;
-        ParameterField field1 = this.crv.ParameterFieldInfo[0];
-        ParameterDiscreteValue val1 = new ParameterDiscreteValue();
-        val1.Value = ILCID;
-        field1.CurrentValues.Add(val1);
+        if (ds.Tables[0].ExtendedProperties.Count != 0)
+        {
+            rprt.SetDataSource(ds);
+            crv.ReportSource = rprt;
+            ParameterField field1 = this.crv.ParameterFieldInfo[0];
+            ParameterDiscreteValue val1 = new ParameterDiscreteValue();
+            val1.Value = ILCID;
+            field1.CurrentValues.Add(val1);
+        }
+        else
+        {
+            ClientScript.RegisterStartupScript(Page.GetType(), "SomeKey", "alert('Nothing to show');", true);
+        }
 
     }
     protected void backBTN_Click(object sender, EventArgs e)
     {
         Response.Redirect("Reports.aspx");
+    }
+    protected void Page_Unload(object sender, EventArgs e)
+    {
+        rprt.Close();
+        rprt.Dispose();
     }
 
 }

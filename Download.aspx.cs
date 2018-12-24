@@ -41,28 +41,46 @@ public partial class Download : System.Web.UI.Page
             adminPanel.Visible = true;
             addUser.Visible = true;
             adminPanel.Visible = true;
+            //deployLink.Visible = true;
             user.InnerText = "Super-Admin";
+            ilcAdmin.Visible = true;
+            sesipAdmin.Visible = true;
+            ap.Visible = true;
+            p.Visible = true;
         }
         else if (userType == "Sesip-Admin")
         {
             adminPanel.Visible = true;
             addUser.Visible = true;
             adminPanel.Visible = true;
+            //deployLink.Visible = true;s
             user.InnerText = "Sesip-Admin";
+            ilcAdmin.Visible = true;
+            sesipAdmin.Visible = true;
+            ap.Visible = true;
+            p.Visible = true;
         }
         else if (userType == "Programmer")
         {
             addUser.Visible = true;
+            //deployLink.Visible = true;
             user.InnerText = "Programmer";
+            ilcAdmin.Visible = true;
+            ap.Visible = true;
+            p.Visible = true;
         }
         else if (userType == "Assistant-Programmer")
         {
+            //deployLink.Visible = true;
             user.InnerText = "Assistant-Programmer";
+            ilcAdmin.Visible = true;
+            ap.Visible = true;
         }
         else if (userType == "ILC-Admin")
         {
             faqLink.Visible = false;
             Response.Redirect("Default.aspx");
+            ilcAdmin.Visible = true;
         }
     }
     protected void logoutLB_Click(object sender, EventArgs e)

@@ -12,7 +12,7 @@ using System.Configuration;
 public partial class CurrentILCStatus : System.Web.UI.Page
 {
     ReportDocument rprt = new ReportDocument();
-    protected void Page_Load(object sender, EventArgs e)
+    protected void Page_Init(object sender, EventArgs e)
     {
         string userType = "";
         string userName = "";
@@ -30,6 +30,7 @@ public partial class CurrentILCStatus : System.Web.UI.Page
             addinfoLink.Visible = true;
             mapLink.Visible = true;
             faqLink.Visible = true;
+
         }
         if (userType == null)
         {
@@ -40,6 +41,7 @@ public partial class CurrentILCStatus : System.Web.UI.Page
             addUser.Visible = true;
             dl.Visible = true;
             adminPanel.Visible = true;
+            //deployLink.Visible = true;
             user.InnerText = "Super-Admin";
         }
         else if (userType == "Sesip-Admin")
@@ -47,17 +49,20 @@ public partial class CurrentILCStatus : System.Web.UI.Page
             addUser.Visible = true;
             dl.Visible = true;
             adminPanel.Visible = true;
+            //deployLink.Visible = true;
             user.InnerText = "Sesip-Admin";
         }
         else if (userType == "Programmer")
         {
             addUser.Visible = true;
             dl.Visible = true;
+            //deployLink.Visible = true;
             user.InnerText = "Programmer";
         }
         else if (userType == "Assistant-Programmer")
         {
             dl.Visible = true;
+            //deployLink.Visible = true;
             user.InnerText = "Assistant-Programmer";
         }
         else if (userType == "ILC-Admin")
@@ -103,5 +108,10 @@ public partial class CurrentILCStatus : System.Web.UI.Page
     protected void backBTN_Click(object sender, EventArgs e)
     {
         Response.Redirect("Reports.aspx");
+    }
+    protected void Page_Unload(object sender, EventArgs e)
+    {
+        rprt.Close();
+        rprt.Dispose();
     }
 }

@@ -33,6 +33,7 @@ public partial class AdminPanel : System.Web.UI.Page
         else if (userType == "Super-Admin")
         {
             addUser.Visible = true;
+            //deployLink.Visible = true;
             dl.Visible = true;
             user.InnerText = "Super-Admin";
         }
@@ -47,12 +48,14 @@ public partial class AdminPanel : System.Web.UI.Page
             Response.Redirect("Default.aspx");
             addUser.Visible = true;
             dl.Visible = true;
+            //deployLink.Visible = true;
             user.InnerText = "Programmer";
         }
         else if (userType == "Assistant-Programmer")
         {
             Response.Redirect("Default.aspx");
             dl.Visible = true;
+            //deployLink.Visible = true;
             user.InnerText = "Assistant-Programmer";
         }
         else if (userType == "ILC-Admin")

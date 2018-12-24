@@ -39,39 +39,38 @@ public partial class Reporting : System.Web.UI.Page
             adminPanel.Visible = true;
             addUser.Visible = true;
             downloadLink.Visible = true;
+            //deployLink.Visible = true;
             allSchoolTR.Visible = true;
             specificSchoolTR.Visible = true;
             currentILCStatusTR.Visible = true;
             CurrentSpecificILCStatusTR.Visible = true;
-            //dateWiseILCStatusTR.Visible = true;
-            //distWiseTodaysILCStatusTR.Visible = true;
-            //divWiseTodaysILCStatusTR.Visible = true;
             ilcRankingTR.Visible = true;
             dateWiseILCStatusDetailsTR.Visible = true;
             dateWiseAllILCStatusTR.Visible = true;
+            CurrentAllILCStatusTR.Visible = true;
         }
         else if (userType == "Sesip-Admin")
         {
             user.InnerText = "Sesip-Admin";
             adminPanel.Visible = true;
             addUser.Visible = true;
+            //deployLink.Visible = true;
             downloadLink.Visible = true;
             allSchoolTR.Visible = true;
             specificSchoolTR.Visible = true;
             currentILCStatusTR.Visible = true;
             CurrentSpecificILCStatusTR.Visible = true;
-            //dateWiseILCStatusTR.Visible = true;
-            //distWiseTodaysILCStatusTR.Visible = true;
-            //divWiseTodaysILCStatusTR.Visible = true;
             ilcRankingTR.Visible = true;
             dateWiseILCStatusDetailsTR.Visible = true;
             dateWiseAllILCStatusTR.Visible = true;
+            CurrentAllILCStatusTR.Visible = true;
         }
         else if(userType == "Programmer")
         {
             user.InnerText = "Programmer";
             addUser.Visible = true;
             downloadLink.Visible = true;
+            //deployLink.Visible = true;
             allSchoolTR.Visible = true;
             specificSchoolTR.Visible = true;
             CurrentSpecificILCStatusTR.Visible = true;
@@ -79,17 +78,21 @@ public partial class Reporting : System.Web.UI.Page
             //distWiseTodaysILCStatusTR.Visible = true;
             //divWiseTodaysILCStatusTR.Visible = true;
             dateWiseILCStatusDetailsTR.Visible = true;
+            CurrentAllILCStatusTR.Visible = true;
         }
         else if (userType == "Assistant-Programmer")
         {
             user.InnerText = "Assistant-Programmer";
             downloadLink.Visible = true;
+            //deployLink.Visible = true;
             allSchoolTR.Visible = true;
             specificSchoolTR.Visible = true;
             CurrentSpecificILCStatusTR.Visible = true;
+            ilcRankingTR.Visible = true;
             //dateWiseILCStatusTR.Visible = true;
             //distWiseTodaysILCStatusTR.Visible = true;
             dateWiseILCStatusDetailsTR.Visible = true;
+            CurrentAllILCStatusTR.Visible = true;
         }
         else if (userType == "ILC-Admin")
         {
@@ -167,5 +170,10 @@ public partial class Reporting : System.Web.UI.Page
     {
         TrackReportGeneration.Add("Date Wise All ILC Status");
         Response.Redirect("DateWiseAllILCStatus.aspx");
+    }
+    protected void CurrentAllILCStatus_Click(object sender, EventArgs e)
+    {
+        TrackReportGeneration.Add("Current All ILC Status");
+        Response.Redirect("CurrentAllILCStatus.aspx");
     }
 }

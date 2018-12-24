@@ -16,7 +16,7 @@ public partial class DateWiseILCStatus : System.Web.UI.Page
 {
     ReportDocument rprt = new ReportDocument();
     string userType = "";
-    protected void Page_Load(object sender, EventArgs e)
+    protected void Page_Init(object sender, EventArgs e)
     {
         datePickerFrom.Attributes.Add("autocomplete", "off");
         datePickerTo.Attributes.Add("autocomplete", "off");
@@ -47,6 +47,7 @@ public partial class DateWiseILCStatus : System.Web.UI.Page
             addUser.Visible = true;
             dl.Visible = true;
             adminPanel.Visible = true;
+            //deployLink.Visible = true;
             user.InnerText = "Super-Admin";
         }
         else if (userType == "Sesip-Admin")
@@ -54,17 +55,20 @@ public partial class DateWiseILCStatus : System.Web.UI.Page
             addUser.Visible = true;
             dl.Visible = true;
             adminPanel.Visible = true;
+            //deployLink.Visible = true;
             user.InnerText = "Sesip-Admin";
         }
         else if (userType == "Programmer")
         {
             addUser.Visible = true;
             dl.Visible = true;
+            //deployLink.Visible = true;
             user.InnerText = "Programmer";
         }
         else if (userType == "Assistant-Programmer")
         {
             dl.Visible = true;
+            //deployLink.Visible = true;
             user.InnerText = "Assistant-Programmer";
         }
         else if (userType == "ILC-Admin")
@@ -112,6 +116,8 @@ public partial class DateWiseILCStatus : System.Web.UI.Page
                 ParameterDiscreteValue val3 = new ParameterDiscreteValue();
                 val3.Value = toDate;
                 field3.CurrentValues.Add(val3);
+                rprt.Close();
+                rprt.Dispose();
             }
             else
             {
@@ -257,5 +263,10 @@ public partial class DateWiseILCStatus : System.Web.UI.Page
             val3.Value = toDate;
             field3.CurrentValues.Add(val3);
         }
+    }
+    protected void Page_Unload(object sender, EventArgs e)
+    {
+        rprt.Close();
+        rprt.Dispose();
     }
 }

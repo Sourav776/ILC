@@ -34,24 +34,28 @@ public partial class Programmers : System.Web.UI.Page
         {
             addUser.Visible = true;
             dl.Visible = true;
+            //deployLink.Visible = true;
             user.InnerText = "Super-Admin";
         }
         else if (userType == "Super-Admin")
         {
             addUser.Visible = true;
             dl.Visible = true;
+            //deployLink.Visible = true;
             user.InnerText = "Super-Admin";
         }
         else if (userType == "Programmer")
         {
             Response.Redirect("Default.aspx");
             addUser.Visible = true;
+            //deployLink.Visible = true;
             dl.Visible = true;
             user.InnerText = "Programmer";
         }
         else if (userType == "Assistant-Programmer")
         {
             Response.Redirect("Default.aspx");
+            //deployLink.Visible = true;
             dl.Visible = true;
             user.InnerText = "Assistant-Programmer";
         }

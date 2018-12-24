@@ -15,7 +15,7 @@ public partial class DateWiseAllILCStatus : System.Web.UI.Page
 {
     ReportDocument rprt = new ReportDocument();
     string userType = "";
-    protected void Page_Load(object sender, EventArgs e)
+    protected void Page_Init(object sender, EventArgs e)
     {
 
         datePickerFrom.Attributes.Add("autocomplete", "off");
@@ -46,6 +46,7 @@ public partial class DateWiseAllILCStatus : System.Web.UI.Page
             addUser.Visible = true;
             dl.Visible = true;
             adminPanel.Visible = true;
+            //deployLink.Visible = true;
             user.InnerText = "Super-Admin";
         }
         else if (userType == "Sesip-Admin")
@@ -53,6 +54,7 @@ public partial class DateWiseAllILCStatus : System.Web.UI.Page
             addUser.Visible = true;
             dl.Visible = true;
             adminPanel.Visible = true;
+            //deployLink.Visible = true;
             user.InnerText = "Sesip-Admin";
         }
         else if (userType == "Programmer")
@@ -60,12 +62,14 @@ public partial class DateWiseAllILCStatus : System.Web.UI.Page
             Response.Redirect("Default.aspx");
             addUser.Visible = true;
             dl.Visible = true;
+            //deployLink.Visible = true;
             user.InnerText = "Programmer";
         }
         else if (userType == "Assistant-Programmer")
         {
             Response.Redirect("Default.aspx");
             dl.Visible = true;
+            //deployLink.Visible = true;
             user.InnerText = "Assistant-Programmer";
         }
         else if (userType == "ILC-Admin")
@@ -106,6 +110,8 @@ public partial class DateWiseAllILCStatus : System.Web.UI.Page
             ParameterDiscreteValue val3 = new ParameterDiscreteValue();
             val3.Value = toDate;
             field3.CurrentValues.Add(val3);
+            //rprt.Close();
+            //rprt.Dispose();
         }
     }
 
@@ -148,5 +154,11 @@ public partial class DateWiseAllILCStatus : System.Web.UI.Page
         ParameterDiscreteValue val3 = new ParameterDiscreteValue();
         val3.Value = toDate;
         field3.CurrentValues.Add(val3);
+    }
+
+    protected void Page_Unload(object sender, EventArgs e)
+    {
+        rprt.Close();
+        rprt.Dispose();
     }
 }

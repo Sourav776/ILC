@@ -15,7 +15,7 @@ public partial class DateWiseDetailUserReport : System.Web.UI.Page
 {
     ReportDocument rprt = new ReportDocument();
     string userType = "";
-    protected void Page_Load(object sender, EventArgs e)
+    protected void Page_Init(object sender, EventArgs e)
     {
         if (!Page.IsPostBack)
         {
@@ -52,6 +52,7 @@ public partial class DateWiseDetailUserReport : System.Web.UI.Page
             addUser.Visible = true;
             dl.Visible = true;
             adminPanel.Visible = true;
+            //deployLink.Visible = true;
             user.InnerText = "Super-Admin";
         }
         else if (userType == "Sesip-Admin")
@@ -59,17 +60,20 @@ public partial class DateWiseDetailUserReport : System.Web.UI.Page
             addUser.Visible = true;
             dl.Visible = true;
             adminPanel.Visible = true;
+            //deployLink.Visible = true;
             user.InnerText = "Sesip-Admin";
         }
         else if (userType == "Programmer")
         {
             addUser.Visible = true;
             dl.Visible = true;
+            //deployLink.Visible = true;
             user.InnerText = "Programmer";
         }
         else if (userType == "Assistant-Programmer")
         {
             dl.Visible = true;
+            //deployLink.Visible = true;
             user.InnerText = "Assistant-Programmer";
         }
         else if (userType == "ILC-Admin")
@@ -78,16 +82,6 @@ public partial class DateWiseDetailUserReport : System.Web.UI.Page
             user.InnerText = "ILC-Admin";
             ilcNameLBL.Visible = false;
             ilcDDL.Visible = false;
-        }
-
-        if (!IsPostBack)
-        {
-
-        }
-        else
-        {
-            //Getting the input values from front-end
-
             string ILCID = ilcDDL.SelectedValue.ToString();
             string fromDate = datePickerFrom.Text;
             string toDate = datePickerTo.Text;
@@ -119,6 +113,54 @@ public partial class DateWiseDetailUserReport : System.Web.UI.Page
             ParameterDiscreteValue val3 = new ParameterDiscreteValue();
             val3.Value = ILCID;
             field3.CurrentValues.Add(val3);
+        }
+
+        if (!IsPostBack)
+        {
+
+        }
+        else
+        {
+            if (userType != "ILC-Admin")
+            {
+                //Getting the input values from front-end
+
+                string ILCID = ilcDDL.SelectedValue.ToString();
+                if (ILCID.Length != 0)
+                {
+                    string fromDate = datePickerFrom.Text;
+                    string toDate = datePickerTo.Text;
+                    Session["ILCID"] = ILCID;
+                    rprt.Load(Server.MapPath("~/rptDateWiseDetailUser.rpt"));
+                    rprt.SetDatabaseLogon("sa", "sqladmin@123", "103.234.26.37", "SESIP", true);
+                    SqlConnection conRpt = new SqlConnection(ConfigurationManager.ConnectionStrings["ILCDBConnectionString"].ToString());
+                    SqlCommand cmdRpt = new SqlCommand("SP_ILC_Logged_On_User_Details", conRpt);
+                    cmdRpt.CommandType = CommandType.StoredProcedure;
+                    cmdRpt.Parameters.AddWithValue("@vDateFrom", fromDate);
+                    cmdRpt.Parameters.AddWithValue("@vDateTo", toDate);
+                    cmdRpt.Parameters.AddWithValue("@vILCID", ILCID);
+
+                    SqlDataAdapter sda = new SqlDataAdapter(cmdRpt);
+                    DataSet ds = new DataSet();
+                    sda.Fill(ds);
+                    rprt.SetDataSource(ds);
+                    crv.ReportSource = rprt;
+                    ParameterField field1 = this.crv.ParameterFieldInfo[0];
+                    ParameterDiscreteValue val1 = new ParameterDiscreteValue();
+                    val1.Value = fromDate;
+                    field1.CurrentValues.Add(val1);
+
+                    ParameterField field2 = this.crv.ParameterFieldInfo[1];
+                    ParameterDiscreteValue val2 = new ParameterDiscreteValue();
+                    val2.Value = toDate;
+                    field2.CurrentValues.Add(val2);
+                    ParameterField field3 = this.crv.ParameterFieldInfo[2];
+                    ParameterDiscreteValue val3 = new ParameterDiscreteValue();
+                    val3.Value = ILCID;
+                    field3.CurrentValues.Add(val3);
+                }
+            }
+           
         }
     }
 
@@ -200,10 +242,19 @@ public partial class DateWiseDetailUserReport : System.Web.UI.Page
 
     private void LoadILC()
     {
-        ilcDDL.DataSource = RetrieveILCByDistrict(districtDDL.SelectedValue);
+        string dis = districtDDL.SelectedValue;
+        string div = ZoneDDL.SelectedValue;
+        ilcDDL.DataSource = RetrieveILCByDistrict(dis);
         ilcDDL.DataValueField = "ILCID";
         ilcDDL.DataTextField = "ILCEng";
         ilcDDL.DataBind();
+        if (dis == null)
+        {
+            ilcDDL.DataSource = RetrieveILCByZone(div);
+            ilcDDL.DataValueField = "ILCID";
+            ilcDDL.DataTextField = "ILCEng";
+            ilcDDL.DataBind();
+        }
     }
 
 
@@ -267,6 +318,34 @@ public partial class DateWiseDetailUserReport : System.Web.UI.Page
     }
 
 
+    public static DataSet RetrieveILCByZone(string Div)
+    {
+        string sql = "";
+        //fetch the connection string from web.config
+        string con = ConfigurationManager.ConnectionStrings["ILCDBConnectionString"].ConnectionString;
+        {
+            sql = @"Select ILCID,ILCEng from Location A 
+  Inner Join tblDistrict B On A.DistCode=B.DistCode
+  Inner Join tblDivision C On B.DivCode=C.DivCode
+  Where C.DivCode='" + Div + "' order by ILCEng";
+        }
+
+        DataSet dsILC = new DataSet();
+        //Open SQL Connection
+        using (SqlConnection conn = new SqlConnection(con))
+        {
+            conn.Open();
+            //Initialize command object
+            using (SqlCommand cmd = new SqlCommand(sql, conn))
+            {
+                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                //Fill the result set
+                adapter.Fill(dsILC);
+            }
+        }
+        return dsILC;
+    }
+
     protected void districtDDL_SelectedIndexChanged(object sender, EventArgs e)
     {
         LoadILC();
@@ -274,6 +353,7 @@ public partial class DateWiseDetailUserReport : System.Web.UI.Page
     protected void ZoneDDL_SelectedIndexChanged(object sender, EventArgs e)
     {
         LoadDis();
+        LoadILC();
     }
     protected void backBTN_Click(object sender, EventArgs e)
     {
@@ -281,7 +361,7 @@ public partial class DateWiseDetailUserReport : System.Web.UI.Page
     }
     protected void rptBTN_Click(object sender, EventArgs e)
     {
-        //TrackReportGeneration.Add("Details Report");
+        TrackReportGeneration.Add("Details Report");
         //Getting the input values from front-end
         string ILCID = ilcDDL.SelectedValue.ToString();
         string fromDate = datePickerFrom.Text;
@@ -300,21 +380,29 @@ public partial class DateWiseDetailUserReport : System.Web.UI.Page
         SqlDataAdapter sda = new SqlDataAdapter(cmdRpt);
         DataSet ds = new DataSet();
         sda.Fill(ds);
-        rprt.SetDataSource(ds);
-        crv.ReportSource = rprt;
-        ParameterField field1 = this.crv.ParameterFieldInfo[0];
-        ParameterDiscreteValue val1 = new ParameterDiscreteValue();
-        val1.Value = fromDate;
-        field1.CurrentValues.Add(val1);
+        if (ds.Tables[0].ExtendedProperties.Count != 0)
+        {
+            rprt.SetDataSource(ds);
+            crv.ReportSource = rprt;
+            ParameterField field1 = this.crv.ParameterFieldInfo[0];
+            ParameterDiscreteValue val1 = new ParameterDiscreteValue();
+            val1.Value = fromDate;
+            field1.CurrentValues.Add(val1);
 
-        ParameterField field2 = this.crv.ParameterFieldInfo[1];
-        ParameterDiscreteValue val2 = new ParameterDiscreteValue();
-        val2.Value = toDate;
-        field2.CurrentValues.Add(val2);
-        ParameterField field3 = this.crv.ParameterFieldInfo[2];
-        ParameterDiscreteValue val3 = new ParameterDiscreteValue();
-        val3.Value = ILCID;
-        field3.CurrentValues.Add(val3);
+            ParameterField field2 = this.crv.ParameterFieldInfo[1];
+            ParameterDiscreteValue val2 = new ParameterDiscreteValue();
+            val2.Value = toDate;
+            field2.CurrentValues.Add(val2);
+            ParameterField field3 = this.crv.ParameterFieldInfo[2];
+            ParameterDiscreteValue val3 = new ParameterDiscreteValue();
+            val3.Value = ILCID;
+            field3.CurrentValues.Add(val3);
+        }
+        else
+        {
+            ClientScript.RegisterStartupScript(Page.GetType(), "SomeKey", "alert('Nothing to show');", true);
+        }
+
     }
     protected void logoutLB_Click(object sender, EventArgs e)
     {
@@ -323,5 +411,10 @@ public partial class DateWiseDetailUserReport : System.Web.UI.Page
         Session.RemoveAll();
         Session.Abandon();
         Response.Redirect("Default.aspx");
+    }
+    protected void Page_Unload(object sender, EventArgs e)
+    {
+        rprt.Close();
+        rprt.Dispose();
     }
 }

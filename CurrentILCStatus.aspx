@@ -77,6 +77,7 @@
                                         <li id="faqLink" visible="false" runat="server"><a href="faq.aspx">FAQ</a></li>
                                         <li id="adminPanel" visible="false" runat="server"><a href="AdminPanel.aspx">Admin Panel</a></li>
                                         <li><a href="About.aspx">About</a></li>
+                                        <%--<li id="deployLink" visible="false" runat="server"><a href="deploy.aspx">Deploy Status</a></li>--%>
                                     </ul>
                                     <ul class="nav navbar-nav navbar-right">
                                         <li>
@@ -114,18 +115,17 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
+                    
+                    <h3>আইসিটি লার্নিং সেন্টারের এই মুহূর্তের স্ট্যাটাস</h3>
+                    <asp:Button ID="backBTN" runat="server" CssClass="btn btn-danger" Text="Go Back" OnClick="backBTN_Click"></asp:Button>
 
-
-                <div style="padding-left: 16px">
-                    <p></p>
-                </div>
                 <div style="padding-left: 16px">
                     <CR:CrystalReportViewer ID="crvAllSchool" runat="server" AutoDataBind="true" ToolPanelView="None" EnableDatabaseLogonPrompt="False" EnableParameterPrompt="False"></CR:CrystalReportViewer>
                 </div>
                </div>
                 <div class="col-md-12">
                     <div>
-                        <asp:Button ID="backBTN" runat="server" CssClass="btn btn-danger" Text="Go Back" OnClick="backBTN_Click"></asp:Button>
+                        
                     </div>
                 </div>
             </div>

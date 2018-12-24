@@ -29,6 +29,7 @@ public partial class _Default : System.Web.UI.Page
             addUser.Visible = true;
             mapLink.Visible = true;
             adminPanel.Visible = true;
+            //deployLink.Visible = true;
             user.InnerText = "Super-Admin";
         }
         else if (userType == "Sesip-Admin")
@@ -38,6 +39,7 @@ public partial class _Default : System.Web.UI.Page
             addUser.Visible = true;
             mapLink.Visible = true;
             adminPanel.Visible = true;
+            //deployLink.Visible = true;
             user.InnerText = "Sesip-Admin";
         }
         else if (userType == "Programmer")
@@ -46,6 +48,7 @@ public partial class _Default : System.Web.UI.Page
             dl.Visible = true;
             addUser.Visible = true;
             mapLink.Visible = true;
+            //deployLink.Visible = true;
             user.InnerText = "Programmer";
         }
         else if (userType == "Assistant-Programmer")
@@ -53,6 +56,7 @@ public partial class _Default : System.Web.UI.Page
             addinfoLink.Visible = true;
             dl.Visible = true;
             mapLink.Visible = true;
+            //deployLink.Visible = true;
             user.InnerText = "Assistant-Programmer";
         }
         else if (userType == "ILC-Admin")
